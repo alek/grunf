@@ -18,8 +18,7 @@
 (defn add
 	"add endpoint url"
 	[url]
-	(swap! urls conj url)
-	(str "foo, " url))
+	(swap! urls conj url))
 
 (defn fetch
 	"fetch given url"
