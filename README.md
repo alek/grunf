@@ -1,6 +1,6 @@
 # grunf
 
-simple infrastructure monitoring toolkit
+simple clojure-based infrastructure monitoring toolkit
 
 ## Usage
 

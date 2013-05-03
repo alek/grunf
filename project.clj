@@ -7,6 +7,8 @@
   	[org.clojure/clojure "1.5.1"]
   	[clj-http "0.4.1"]
 	[io.netty/netty "3.6.1.Final"]
+	[clojurewerkz/quartzite "1.0.1"]
+
   ]
   :main grunf.bin
 )
