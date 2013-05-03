@@ -37,7 +37,7 @@
 (defjob FetchJob
 	[ctx]
 	(let [m (qc/from-job-data ctx)]
-		(println (conj (fetchTime (get m "url")) (get m "url")))))
+		(println (conj (fetchTime (get m "url")) (get m "url") (System/currentTimeMillis)))))
 
 (defn submitFetchJob
 	"submit fetch job for execution"
@@ -56,7 +56,7 @@
 		  (qs/schedule job trigger)))
 
 (defn -main
-	"Start Grunf. Pass remote hostname or config as first arg"
+	"Start Grunf. Pass remote hostname or config as argv"
 	[& argv]
 	(try
 		(println "initializing quartzite scheduler")
