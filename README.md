@@ -1,6 +1,6 @@
 # grunf
 
-[ simple infrastructure monitoring toolkit ]
+simple infrastructure monitoring toolkit
 
 ## Usage
 

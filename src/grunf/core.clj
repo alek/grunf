@@ -1,4 +1,6 @@
-(ns grunf.core)
+(ns grunf.core
+	"service bootstrap"
+	)
 
 (defn foo
   "I don't do a whole lot."
