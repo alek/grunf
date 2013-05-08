@@ -8,7 +8,7 @@ lein run -m grunf.bin (host list) (poll interval [sec])
 
 Example:
 
-lein run -m grunf.bin '["http://www.google.com" "http://facebook.com"] 10'
+lein run -m grunf.bin '(["http://www.google.com" "http://www.yahoo.com" "http://www.bing.com"] 1000)'
 
 ## License
 

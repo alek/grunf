@@ -10,7 +10,7 @@
 				[clojurewerkz.quartzite.conversion :as qc]
 		)
 	(:use [clojurewerkz.quartzite.jobs :only [defjob]]
-		[clojurewerkz.quartzite.schedule.simple :only [schedule with-repeat-count with-interval-in-milliseconds]])
+		[clojurewerkz.quartzite.schedule.simple :only [schedule with-repeat-count with-interval-in-milliseconds repeat-forever]])
 	(:gen-class))
 
 (defn args-seq [& argv]
@@ -28,7 +28,7 @@
 (defn fetch
 	"fetch given url"
 	[url]
-	(client/get url))
+	(count (:body (client/get url))))
 
 (defn fetchTime
 	"get url fetch time"
@@ -56,7 +56,7 @@
 			  		(t/with-identity (t/key (str "triggers." url) ))
 			  		(t/start-now)
 			  		(t/with-schedule (schedule
-			  							(with-repeat-count 1000)
+			  							(repeat-forever)
 			  							(with-interval-in-milliseconds interval))))]
 		  (qs/schedule job trigger)))
 
@@ -66,7 +66,7 @@
 
 	(if (< (count argv) 1)
 		(do
-			(println "usage: lein run -m grunf.bin [hostname list] [poll interval]")
+			(println "usage: lein run -m grunf.bin '([hostname_list] poll_interval)'")
 			(System/exit 0)))
 
 	(try
@@ -75,10 +75,9 @@
 		(println "starting quartzite scheduler")
 		(qs/start)
 		(println "scheduler started")
-		(doseq [url (read-string (first argv))] (submitFetchJob url 500))
+		(doseq [url (first (read-string (first argv)))] (submitFetchJob url (last (read-string (first argv)))))
 		(catch Exception e
 			(println e)
-			(error e "Error starting the app")
-			)
-	)	
-)
+			(error e "Error starting the app"))))
+
+
