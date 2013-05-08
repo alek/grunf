@@ -13,6 +13,11 @@
 		[clojurewerkz.quartzite.schedule.simple :only [schedule with-repeat-count with-interval-in-milliseconds]])
 	(:gen-class))
 
+(defn args-seq [& argv]
+	(class argv)
+	(println argv)
+	)
+
 (def urls (atom #{})) ; set of active urls
 
 (defn add
@@ -41,7 +46,7 @@
 
 (defn submitFetchJob
 	"submit fetch job for execution"
-	[url]
+	[url interval]
 	(println (str "submitting url : " url))
 	(let [job (j/build
 				(j/of-type FetchJob)
@@ -52,20 +57,27 @@
 			  		(t/start-now)
 			  		(t/with-schedule (schedule
 			  							(with-repeat-count 1000)
-			  							(with-interval-in-milliseconds 500))))]
+			  							(with-interval-in-milliseconds interval))))]
 		  (qs/schedule job trigger)))
 
 (defn -main
 	"Start Grunf. Pass remote hostname or config as argv"
 	[& argv]
+
+	(if (< (count argv) 1)
+		(do
+			(println "usage: lein run -m grunf.bin [hostname list] [poll interval]")
+			(System/exit 0)))
+
 	(try
 		(println "initializing quartzite scheduler")
 		(qs/initialize)
 		(println "starting quartzite scheduler")
 		(qs/start)
 		(println "scheduler started")
-		(doseq [url argv] (submitFetchJob url))
+		(doseq [url (read-string (first argv))] (submitFetchJob url 500))
 		(catch Exception e
+			(println e)
 			(error e "Error starting the app")
 			)
 	)	
