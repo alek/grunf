@@ -2,7 +2,7 @@
 
 (simple clojure-based http monitoring tool)
 
-## Usage
+## usage
 
 lein run -m grunf.bin '([hostname_list] poll_interval)'
 
@@ -10,6 +10,6 @@ Example:
 
 lein run -m grunf.bin '(["http://www.google.com" "http://www.yahoo.com" "http://www.bing.com"] 1000)'
 
-## License
+## license
 
 Distributed under the Eclipse Public License, the same as Clojure.
