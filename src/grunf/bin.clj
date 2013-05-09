@@ -47,7 +47,6 @@
 (defn submitFetchJob
 	"submit fetch job for execution"
 	[url interval]
-	(println (str "submitting url : " url))
 	(let [job (j/build
 				(j/of-type FetchJob)
 				(j/using-job-data {"url" url})
@@ -70,11 +69,8 @@
 			(System/exit 0)))
 
 	(try
-		(println "initializing quartzite scheduler")
 		(qs/initialize)
-		(println "starting quartzite scheduler")
 		(qs/start)
-		(println "scheduler started")
 		(doseq [url (first (read-string (first argv)))] (submitFetchJob url (last (read-string (first argv)))))
 		(catch Exception e
 			(println e)

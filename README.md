@@ -1,10 +1,10 @@
 # grunf
 
-simple clojure-based infrastructure monitoring toolkit
+Simple clojure-based http monitoring tool
 
 ## Usage
 
-lein run -m grunf.bin (host list) (poll interval [sec])
+lein run -m grunf.bin '([hostname_list] poll_interval)'
 
 Example:
 
