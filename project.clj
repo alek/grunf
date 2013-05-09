@@ -8,6 +8,7 @@
     [org.slf4j/slf4j-nop "1.7.2"]
   	[clj-http "0.4.1"]
 	  [clojurewerkz/quartzite "1.0.1"]
+    [overtone "0.8.1"]
   ]
   :main grunf.bin
 )

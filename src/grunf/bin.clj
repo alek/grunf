@@ -10,13 +10,9 @@
 				[clojurewerkz.quartzite.conversion :as qc]
 		)
 	(:use [clojurewerkz.quartzite.jobs :only [defjob]]
-		[clojurewerkz.quartzite.schedule.simple :only [schedule with-repeat-count with-interval-in-milliseconds repeat-forever]])
+		[clojurewerkz.quartzite.schedule.simple :only [schedule with-repeat-count with-interval-in-milliseconds repeat-forever]]
+		[overtone.live])
 	(:gen-class))
-
-(defn args-seq [& argv]
-	(class argv)
-	(println argv)
-	)
 
 (defn fetch
 	"fetch given url"
@@ -35,7 +31,10 @@
 (defjob FetchJob
 	[ctx]
 	(let [m (qc/from-job-data ctx)]
-		(println (conj (fetchTime (get m "url")) (get m "url") (System/currentTimeMillis)))))
+		(definst foo [] (saw (/ (fetchTime (get m "url")) 2) ))
+		(foo)
+		(println (conj (fetchTime (get m "url")) (get m "url") (System/currentTimeMillis)))
+		(kill foo)))
 
 (defn submitFetchJob
 	"submit fetch job for execution"
