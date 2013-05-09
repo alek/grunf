@@ -1,6 +1,6 @@
 # grunf
 
-Simple clojure-based http monitoring tool
+(simple clojure-based http monitoring tool)
 
 ## Usage
 
